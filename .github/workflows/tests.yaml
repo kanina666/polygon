@@ -19,5 +19,8 @@ jobs:
     - name: Install g++
       run: sudo apt-get install g++
 
+    - name: Set execute permissions
+      run: chmod +x ./cmake-build-debug/PolygonLabelEncoderTests.exe
+
     - name: Run PolygonLabelEncoderTests
-      run: ./cmake-build-debug/PolygonLabelEncoderTests.exe
+      run: ./cmake-build-debug/PolygonLabelEncoderTests.exe  
