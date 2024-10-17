@@ -10,17 +10,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Install g++
-      run: sudo apt-get install g++
-
-    - name: Set execute permissions
-      run: chmod +x ./cmake-build-debug/PolygonLabelEncoderTests.exe
+      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' 
+        choco install ninja
+    
+    - name: Configure and Build with CMake
+      run: |
+        cmake -S . -B cmake-build-debug -G Ninja
+        cmake --build cmake-build-debug
 
     - name: Run PolygonLabelEncoderTests
       run: ./cmake-build-debug/PolygonLabelEncoderTests.exe  
