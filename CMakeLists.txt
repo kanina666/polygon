@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.21)
 project(PolygonLabelEncoder)
 
+add_subdirectory(googletest)
+
 set(CMAKE_CXX_STANDARD 14)
 
 
