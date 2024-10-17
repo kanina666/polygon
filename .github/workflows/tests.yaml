@@ -19,8 +19,5 @@ jobs:
     - name: Install g++
       run: sudo apt-get install g++
 
-    - name: Compile label_encoder.cpp
-      run: g++ label_encoder.cpp -o label_encoder 
-
-    - name: Run label_encoder
-      run: ./label_encoder 
+    - name: Run PolygonLabelEncoderTests
+      run: ./cmake-build-debug/PolygonLabelEncoderTests.exe
