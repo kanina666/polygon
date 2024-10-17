@@ -38,7 +38,7 @@ jobs:
   
     - name: Configure and Build with CMake
       run: |
-          cmake -S . -B cmake-build-debug -G Ninja
+          cmake -S . -B cmake-build-debug -G "Visual Studio 17 2022"
           cmake --build cmake-build-debug
   
     - name: Run PolygonLabelEncoderTests
