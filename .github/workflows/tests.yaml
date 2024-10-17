@@ -20,8 +20,7 @@ jobs:
       run: sudo apt-get install g++
 
     - name: Compile label_encoder.cpp
-      run: g++ label_encoder.cpp -o main 
+      run: g++ label_encoder.cpp -o label_encoder 
 
-    - name: Run main program
-      run: ./main 
-
+    - name: Run label_encoder
+      run: ./label_encoder 
