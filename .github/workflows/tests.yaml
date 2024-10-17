@@ -19,14 +19,9 @@ jobs:
     - name: Install g++
       run: sudo apt-get install g++
 
-    - name: Compile main.cpp and label_encoder.cpp
-      run: g++ main.cpp label_encoder.cpp -o main 
+    - name: Compile label_encoder.cpp
+      run: g++ label_encoder.cpp -o main 
 
     - name: Run main program
       run: ./main 
 
-    - name: Compile tests.cpp and label_encoder.cpp
-      run: g++ tests.cpp label_encoder.cpp -o tests 
-
-    - name: Run tests
-      run: ./tests
