@@ -16,10 +16,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' 
-        choco install ninja
-    
+      - name: Install CMake
+      run: |
+        $ErrorActionPreference = "Stop"
+        Invoke-WebRequest -Uri https://github.com/Kitware/CMake/releases/latest/download/cmake-*-win64-x64.msi -OutFile cmake.msi
+        Start-Process msiexec.exe -ArgumentList '/i cmake.msi /quiet /norestart' -NoNewWindow -Wait
+        Remove-Item cmake.msi
+
+    - name: Install Ninja
+      run: |
+        # Скачиваем и распаковываем Ninja
+        Invoke-WebRequest -Uri https://github.com/ninja-build/ninja/releases/latest/download/ninja-win.zip -OutFile ninja.zip
+        Expand-Archive ninja.zip -DestinationPath $Env:ProgramFiles
+        Remove-Item ninja.zip
+        $env:Path += ";$Env:ProgramFiles\ninja-win"
+
     - name: Configure and Build with CMake
       run: |
         cmake -S . -B cmake-build-debug -G Ninja
