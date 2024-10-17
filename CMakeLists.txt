@@ -8,12 +8,12 @@ add_subdirectory("googletest")
 
 add_executable(PolygonLabelEncoder main.cpp)
 
-# Тесты
+
 add_executable(PolygonLabelEncoderTests tests.cpp)
 
-# Линкуем Google Test библиотеки с тестами
+add_executable(polygon main.cpp label_encoder.cpp)
+
 target_link_libraries(PolygonLabelEncoderTests gtest_main gtest)
 
-# Включаем тестирование
 enable_testing()
 add_test(NAME PolygonLabelEncoderTests COMMAND PolygonLabelEncoderTests)
