@@ -19,7 +19,9 @@ jobs:
     - name: Install CMake
       run: |
         $ErrorActionPreference = "Stop"
-        Invoke-WebRequest -Uri https://github.com/Kitware/CMake/releases/latest/download/cmake-*-win64-x64.msi -OutFile cmake.msi
+        # Загрузка последней версии CMake
+        $version = "3.26.4" # Укажите нужную версию
+        Invoke-WebRequest -Uri "https://github.com/Kitware/CMake/releases/download/v$version/cmake-$version-win64-x64.msi" -OutFile cmake.msi
         Start-Process msiexec.exe -ArgumentList '/i cmake.msi /quiet /norestart' -NoNewWindow -Wait
         Remove-Item cmake.msi
 
@@ -29,12 +31,15 @@ jobs:
         Invoke-WebRequest -Uri https://github.com/ninja-build/ninja/releases/latest/download/ninja-win.zip -OutFile ninja.zip
         Expand-Archive ninja.zip -DestinationPath $Env:ProgramFiles
         Remove-Item ninja.zip
+        # Добавляем Ninja в системный PATH
         $env:Path += ";$Env:ProgramFiles\ninja-win"
 
+    # 1. Конфигурируем и собираем проект
     - name: Configure and Build with CMake
       run: |
         cmake -S . -B cmake-build-debug -G Ninja
         cmake --build cmake-build-debug
 
+    # 2. Запуск тестов (PolygonLabelEncoderTests.exe)
     - name: Run PolygonLabelEncoderTests
-      run: .\cmake-build-debug\PolygonLabelEncoderTests.exe
+      run: .\cmake-build-debug\PolygonLabelEncoderTests.exe  # Запуск тестов
