@@ -6,7 +6,8 @@ add_subdirectory(googletest)
 set(CMAKE_CXX_STANDARD 14)
 
 
-add_subdirectory("googletest")
+add_subdirectory(googletest googletest-build)
+
 
 add_executable(PolygonLabelEncoder main.cpp)
 
