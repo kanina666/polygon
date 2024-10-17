@@ -16,7 +16,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-      - name: Install CMake
+    - name: Install CMake
       run: |
         $ErrorActionPreference = "Stop"
         Invoke-WebRequest -Uri https://github.com/Kitware/CMake/releases/latest/download/cmake-*-win64-x64.msi -OutFile cmake.msi
