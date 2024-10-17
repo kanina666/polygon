@@ -16,12 +16,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install CMake
+      name: Install CMake
       run: |
         $ErrorActionPreference = "Stop"
-        # Загрузка последней версии CMake
-        $version = "3.26.4" # Укажите нужную версию
-        Invoke-WebRequest -Uri "https://github.com/Kitware/CMake/releases/download/v$version/cmake-$version-win64-x64.msi" -OutFile cmake.msi
+        # Загрузка CMake (используем фиксированный URL для версии 3.26.4)
+        Invoke-WebRequest -Uri "https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4-windows-x86_64.msi" -OutFile cmake.msi
         Start-Process msiexec.exe -ArgumentList '/i cmake.msi /quiet /norestart' -NoNewWindow -Wait
         Remove-Item cmake.msi
 
@@ -42,4 +41,4 @@ jobs:
 
     # 2. Запуск тестов (PolygonLabelEncoderTests.exe)
     - name: Run PolygonLabelEncoderTests
-      run: .\cmake-build-debug\PolygonLabelEncoderTests.exe  # Запуск тестов
+      run: .\cmake-build-debug\PolygonLabelEncoderTests.exe
